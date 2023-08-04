@@ -3,6 +3,12 @@
   become: true
   tasks:
     - name: install ngnix
-      ansible.builtin.yum:
-        name: httpd
+      ansible.builtin.package:
+        name: nginx
         state: latest
+
+    - name: run ngnix
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
