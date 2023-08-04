@@ -1,5 +1,6 @@
 - name: frontend
   hosts: WEB
+  become: true
   tasks:
     - name: install ngnix
       ansible.builtin.yum:
