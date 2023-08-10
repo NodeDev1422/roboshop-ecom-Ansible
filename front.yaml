@@ -1,0 +1,38 @@
+- name: frontend
+  hosts: frontend
+  become: true
+  tasks:
+    - name: install nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+    
+    - name: copy nginx file
+      ansible.builtin.copy:
+        src: nginx-roboshop.conf
+        dest: /etc/nginx/default.d/roboshop.conf
+    
+    - name: remove files from html directory
+      ansible.builtin.file:
+        path: /usr/share/nginx/html/
+        state: absent
+
+    - name: create a directory
+      ansible.builtin.file:
+        path: /usr/share/nginx/html/
+        state: present
+
+    - name: get Zip files
+      ansible.builtin.unarchive:
+        src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip 
+        dest: /usr/share/nginx/html
+    
+    - name: restart server
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted
+        enabled: true
+
+
+
+
