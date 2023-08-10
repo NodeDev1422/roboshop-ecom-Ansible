@@ -13,9 +13,10 @@
         dest: /etc/yum.repos.d/mongo.repo
 
     - name: replace string in repo file
-      path: /etc/mongod.repo
-      regexp: '127.0.0.1'
-      replace: '0.0.0.0'
+      ansible.builtin.replace:
+        path: /etc/mongod.repo
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'
 
     - name: start mongodb
       ansible.builtin.systemd:
