@@ -5,7 +5,7 @@
     - name: install mongodb
       ansible.builtin.yum:
         name: mongodb-org
-        state: present
+        state: installed
     
     - name: copy config file
       ansible.builtin.copy:
